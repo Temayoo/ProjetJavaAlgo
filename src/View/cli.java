@@ -17,8 +17,9 @@ public class cli {
             int choice = scanner.nextInt();
             switch(choice){
                 case 1:
-                    System.out.println(" Commencez "+"\r\n"+" ");
-                    menu();
+                    System.out.println("Commencez " + "\r\n" + " ");
+                    src.Controller.gamebase.demarrerJeu();
+                    break;
                 case 2:
                     System.out.println(" Score "+"\r\n"+" ");
                     menu();
