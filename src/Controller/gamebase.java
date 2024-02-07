@@ -43,12 +43,23 @@ public class gamebase {
 
     private static void tourJoueur(Joueur joueur) {
         System.out.println("Tour de " + joueur.obtenirPseudo());
+
+        // Sauvegarde des coordonnées actuelles du joueur
+        int ancienX = joueur.obtenirPositionX();
+        int ancienY = joueur.obtenirPositionY();
+
         deplacement(joueur);
-        placerX(joueur);
+
+        // Vérifier si le joueur s'est réellement déplacé
+        if (ancienX == joueur.obtenirPositionX() && ancienY == joueur.obtenirPositionY()) {
+            System.out.println("Le déplacement n'est pas valide. Veuillez choisir une autre direction.");
+            tourJoueur(joueur); // Répéter le tour du joueur
+        } else {
+            placerX(joueur);
+        }
     }
 
-    // Méthode pour gérer le déplacement d'un joueur
-    public static void deplacement(Joueur joueur) {
+    private static void deplacement(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean mouvementValide = false;
 
@@ -57,25 +68,29 @@ public class gamebase {
                 System.out.println("Choisissez une direction (z pour haut, s pour bas, q pour gauche, d pour droite) : ");
                 String direction = scanner.nextLine().toLowerCase();
 
+                int ancienX = joueur.obtenirPositionX();
+                int ancienY = joueur.obtenirPositionY();
+
                 switch (direction) {
                     case "z":
                         joueur.deplacerVersLeHaut(carteJeu.getJoueurs(), carteJeu);
-                        mouvementValide = true;
                         break;
                     case "s":
                         joueur.deplacerVersLeBas(carteJeu.getJoueurs(), carteJeu);
-                        mouvementValide = true;
                         break;
                     case "q":
                         joueur.deplacerVersLaGauche(carteJeu.getJoueurs(), carteJeu);
-                        mouvementValide = true;
                         break;
                     case "d":
                         joueur.deplacerVersLaDroite(carteJeu.getJoueurs(), carteJeu);
-                        mouvementValide = true;
                         break;
                     default:
                         System.out.println("Direction invalide !");
+                }
+
+                // Vérifier si le joueur s'est réellement déplacé
+                if (ancienX != joueur.obtenirPositionX() || ancienY != joueur.obtenirPositionY()) {
+                    mouvementValide = true;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur de saisie. Veuillez entrer une direction valide.");

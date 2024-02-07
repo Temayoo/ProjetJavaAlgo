@@ -2,7 +2,6 @@ package src.Model;
 
 import java.util.List;
 
-import static src.Controller.gamebase.deplacement;
 
 public class Joueur {
 
