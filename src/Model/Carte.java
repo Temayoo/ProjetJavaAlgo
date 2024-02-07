@@ -1,20 +1,57 @@
 package src.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Carte {
 
     // Variables pour la taille de la carte, la grille et les joueurs
     private int tailleX, tailleY;
     private String[][] grille;
+
+    List<Joueur> joueurs;
     private Joueur joueur1;
     private Joueur joueur2;
 
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
+
+    public void setJoueur1(Joueur joueur1) {
+        this.joueur1 = joueur1;
+    }
+
+    // Getter et Setter pour joueur2
+    public Joueur getJoueur2() {
+        return joueur2;
+    }
+
+    public void setJoueur2(Joueur joueur2) {
+        this.joueur2 = joueur2;
+    }
+
+    // Getter et Setter pour la liste de joueurs
+    public List<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    public void setJoueurs(List<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+
     // Constructeur de la classe Carte avec initialisation des joueurs et de la grille
+// Ajoutez cela à votre constructeur dans la classe Carte
     public Carte(int tailleX, int tailleY, Joueur joueur1, Joueur joueur2) {
         this.tailleX = tailleX;
         this.tailleY = tailleY;
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
         grille = new String[tailleY][tailleX];
+
+        // Initialisez la liste de joueurs
+        joueurs = new ArrayList<>();
+        joueurs.add(joueur1);
+        joueurs.add(joueur2);
     }
 
     // Méthode pour générer la carte avec des rebords
@@ -67,4 +104,6 @@ public class Carte {
     public int obtenirTailleY() {
         return tailleY;
     }
+
 }
+
