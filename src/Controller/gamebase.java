@@ -90,6 +90,7 @@ public class gamebase {
                 scanner.nextLine();  // enlève la ligne incorrecte
             }
         }
+        carteJeu.afficher();
     }
 
     // Méthode pour gérer la pose de la croix par un joueur
