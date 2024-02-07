@@ -5,15 +5,22 @@ import src.Model.Joueur;
 
 import java.util.Scanner;
 
-
 public class gamebase {
 
+    // Variable pour déterminer si le jeu est terminé
     private static boolean estTermine = false;
+
+
     private static Joueur joueur1;
     private static Joueur joueur2;
-    private static Carte carteJeu;
-    private static Joueur joueurActuel; // Ajout d'une variable pour suivre le joueur actuel
 
+
+    private static Carte carteJeu;
+
+
+    private static Joueur joueurActuel;
+
+    // Méthode pour démarrer le jeu
     public static void demarrerJeu() {
         // Appeler la méthode demanderPseudos() de la nouvelle classe scannerPseudo
         String[] pseudos = src.View.scannerPseudo.demanderPseudos();
@@ -37,17 +44,19 @@ public class gamebase {
         }
     }
 
-
+    // Méthode pour gérer le tour d'un joueur
     private static void tourJoueur(Joueur joueur) {
+        // Un Sout pour savoir qui est entrain de jouer
         System.out.println("Tour de " + joueur.obtenirPseudo());
 
         // Déplacement
         deplacement(joueur);
+
         // Pose de la croix
         placerX(joueur);
     }
 
-
+    // Méthode pour gérer le déplacement d'un joueur
     private static void deplacement(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean mouvementValide = false;
@@ -78,12 +87,12 @@ public class gamebase {
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Erreur de saisie. Veuillez entrer une direction valide.");
-                scanner.nextLine();  // enleve la ligne incorrect
+                scanner.nextLine();  // enlève la ligne incorrecte
             }
         }
     }
 
-
+    // Méthode pour gérer la pose de la croix par un joueur
     private static void placerX(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean coordonneesValides = false;
@@ -102,4 +111,3 @@ public class gamebase {
         }
     }
 }
-
