@@ -6,7 +6,6 @@ public class scannerPseudo {
     public static String[] demanderPseudos() {
         Scanner scanner = new Scanner(System.in);
         String[] pseudos = new String[2];
-
         for (int i = 0; i < 2; i++) {
             System.out.println("Veuillez entrer le pseudo du Joueur " + (i + 1) + " (entre 2 et 10 caractères): ");
             String pseudo = scanner.next();
