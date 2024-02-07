@@ -11,32 +11,34 @@ import static src.Model.Joueur.joueursBloques;
 
 public class gamebase {
 
+    // Variable indiquant si le jeu est terminé
     private static boolean estTermine = false;
+
+    // Joueurs du jeu
     private static Joueur joueur1;
     private static Joueur joueur2;
 
-    public static void setJoueurActuel(Joueur joueurActuel) {
-        gamebase.joueurActuel = joueurActuel;
-    }
-
-    public static Joueur getJoueurActuel() {
-        return joueurActuel;
-    }
-
+    // Carte du jeu
     private static Carte carteJeu;
 
+    // Joueur actuel (celui du tour)
     private static Joueur joueurActuel;
 
+    // Méthode pour démarrer le jeu
     public static void demarrerJeu() {
+        // Demander les pseudos aux joueurs
         String[] pseudos = src.View.scannerPseudo.demanderPseudos();
 
+        // Initialiser les joueurs et la carte
         joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1");
         joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2");
         carteJeu = new Carte(12, 11, joueur1, joueur2);
 
+        // Générer la carte et déterminer aléatoirement le joueur actuel
         carteJeu.genererCarte();
         joueurActuel = (Math.random() < 0.5) ? joueur1 : joueur2;
 
+        // Boucle principale du jeu
         while (!estTermine) {
             carteJeu.afficher();
             tourJoueur(joueurActuel);
@@ -46,43 +48,46 @@ public class gamebase {
         // Afficher le joueur bloqué lorsque le jeu est terminé
         for (Joueur joueur : carteJeu.getJoueurs()) {
             if (joueur.estBloque(carteJeu)) {
-                System.out.println("Le jeu est terminé. " + joueur.obtenirPseudo() + " est bloqué !");
+                System.out.println("Le jeu est terminé car le joueur " + joueur.obtenirPseudo() + " est bloqué !");
                 return;
             }
         }
     }
 
+    // Méthode représentant le tour d'un joueur
     private static void tourJoueur(Joueur joueur) {
         System.out.println("Tour de " + joueur.obtenirPseudo());
 
-        // Sauvegarde des coordonnées actuelles du joueur
+        // Sauvegarde des coordonnées actuelles du joueur pour verifier si il a bougé
         int ancienX = joueur.obtenirPositionX();
         int ancienY = joueur.obtenirPositionY();
 
+        // Appel de la méthode de déplacement du joueur
         deplacement(joueur);
 
-        // Vérifier si le joueur s'est réellement déplacé
+        // Vérifier si le joueur s'est réellement déplacé en regardant c'est coordonnées
         if (ancienX == joueur.obtenirPositionX() && ancienY == joueur.obtenirPositionY()) {
             System.out.println("Le déplacement n'est pas valide. Veuillez choisir une autre direction.");
             tourJoueur(joueur); // Répéter le tour du joueur
         } else {
+            // Appel de la méthode de placement de "X"
             placerX(joueur);
 
             // Vérifier si tous les joueurs sont bloqués après le placement de "X"
             if (joueursBloques(carteJeu.getJoueurs(), carteJeu)) {
                 carteJeu.afficher();
-                System.out.println("Le jeu est terminé. Tous les joueurs sont bloqués !");
+                System.out.println("Le jeu est terminé !");
                 estTermine = true;  // Mettre fin au jeu
                 return;  // Sortir de la méthode et du tour du joueur
             }
         }
     }
 
-
+    // Méthode de déplacement du joueur
     private static void deplacement(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean mouvementValide = false;
-
+        // Variable pour valider le changement de position du joueur
         while (!mouvementValide) {
             try {
                 System.out.println("Choisissez une direction (z pour haut, s pour bas, q pour gauche, d pour droite) : ");
@@ -91,6 +96,7 @@ public class gamebase {
                 int ancienX = joueur.obtenirPositionX();
                 int ancienY = joueur.obtenirPositionY();
 
+                // Déplacement du joueur en fonction de la direction choisie
                 switch (direction) {
                     case "z":
                         joueur.deplacerVersLeHaut(carteJeu.getJoueurs(), carteJeu);
@@ -117,19 +123,22 @@ public class gamebase {
                 scanner.nextLine();
             }
         }
+        // affiche la carte pour mettre a jour
         carteJeu.afficher();
     }
 
+    // Méthode de placement de "X" sur la carte
     private static void placerX(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean coordonneesValides = false;
-
+        // variable pour savoir si les coordonnées sont bon et qu'ils y a aucun joueur sur la carte
         while (!coordonneesValides) {
             try {
                 System.out.println("Choisissez les coordonnées où placer 'X' (format : x y) : ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
 
+                // Vérifier la validité des coordonnées
                 if (x < 0 || x >= carteJeu.obtenirTailleX() || y < 0 || y >= carteJeu.obtenirTailleY()) {
                     System.out.println("Erreur : Veuillez entrer des coordonnées valides.");
                     scanner.nextLine();
@@ -145,6 +154,7 @@ public class gamebase {
                     }
                 }
 
+                // Gérer le placement de "X" en fonction des conditions
                 if (joueurPresent) {
                     System.out.println("Vous ne pouvez pas placer 'X' sur la position d'un autre joueur.");
                 } else if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
@@ -152,7 +162,7 @@ public class gamebase {
                     System.out.println("'X' placé avec succès !");
                     coordonneesValides = true;
                 } else {
-                    System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.').");
+                    System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.')");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer deux entiers valides.");
