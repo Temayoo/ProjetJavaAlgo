@@ -5,6 +5,7 @@ import src.Model.Joueur;
 
 import java.util.Scanner;
 
+
 public class gamebase {
 
     private static boolean estTermine = false;
@@ -18,9 +19,9 @@ public class gamebase {
         String[] pseudos = src.View.scannerPseudo.demanderPseudos();
 
         // Initialisation des joueurs et de la carte
-        joueur1 = new src.Model.Joueur(pseudos[0], 5, 5);
-        joueur2 = new src.Model.Joueur(pseudos[1], 6, 5);
-        carteJeu = new Carte(12, 11);
+        joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1");
+        joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2");
+        carteJeu = new Carte(12, 11, joueur1, joueur2);  // Passer les joueurs à la carte
 
         // Générer la carte
         carteJeu.genererCarte();
@@ -36,31 +37,69 @@ public class gamebase {
         }
     }
 
+
     private static void tourJoueur(Joueur joueur) {
         System.out.println("Tour de " + joueur.obtenirPseudo());
 
+        // Déplacement
+        deplacement(joueur);
+        // Pose de la croix
+        placerX(joueur);
+    }
+
+
+    private static void deplacement(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choisissez une direction (z pour haut, s pour bas, q pour gauche, d pour droite) : ");
-        String direction = scanner.nextLine();
+        boolean mouvementValide = false;
+        while (!mouvementValide) {
+            try {
+                System.out.println("Choisissez une direction (z pour haut, s pour bas, q pour gauche, d pour droite) : ");
+                String direction = scanner.nextLine().toLowerCase();
 
-        switch (direction.toLowerCase()) {
-            case "z":
-                joueur.deplacerVersLeHaut();
-                break;
-            case "s":
-                joueur.deplacerVersLeBas();
-                break;
-            case "q":
-                joueur.deplacerVersLaGauche();
-                break;
-            case "d":
-                joueur.deplacerVersLaDroite();
-                break;
-            default:
-                System.out.println("Direction invalide !");
+                switch (direction) {
+                    case "z":
+                        joueur.deplacerVersLeHaut(carteJeu);
+                        mouvementValide = true;
+                        break;
+                    case "s":
+                        joueur.deplacerVersLeBas(carteJeu);
+                        mouvementValide = true;
+                        break;
+                    case "q":
+                        joueur.deplacerVersLaGauche(carteJeu);
+                        mouvementValide = true;
+                        break;
+                    case "d":
+                        joueur.deplacerVersLaDroite(carteJeu);
+                        mouvementValide = true;
+                        break;
+                    default:
+                        System.out.println("Direction invalide !");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Erreur de saisie. Veuillez entrer une direction valide.");
+                scanner.nextLine();  // enleve la ligne incorrect
+            }
         }
+    }
 
-        // Mettez à jour l'affichage après le déplacement
-        carteJeu.afficher();
+
+    private static void placerX(Joueur joueur) {
+        Scanner scanner = new Scanner(System.in);
+        boolean coordonneesValides = false;
+        while (!coordonneesValides) {
+            System.out.println("Choisissez les coordonnées où placer 'X' (format : x y) : ");
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+
+            if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
+                carteJeu.placerX(x, y);
+                System.out.println("'X' placé avec succès !");
+                coordonneesValides = true;
+            } else {
+                System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.').");
+            }
+        }
     }
 }
+
