@@ -3,6 +3,8 @@ package src.Controller;
 import src.Model.Carte;
 import src.Model.Joueur;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class gamebase {
@@ -90,24 +92,42 @@ public class gamebase {
                 scanner.nextLine();  // enlève la ligne incorrecte
             }
         }
+        carteJeu.afficher();
     }
 
     // Méthode pour gérer la pose de la croix par un joueur
     private static void placerX(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
         boolean coordonneesValides = false;
-        while (!coordonneesValides) {
-            System.out.println("Choisissez les coordonnées où placer 'X' (format : x y) : ");
-            int x = scanner.nextInt();
-            int y = scanner.nextInt();
 
-            if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
-                carteJeu.placerX(x, y);
-                System.out.println("'X' placé avec succès !");
-                coordonneesValides = true;
-            } else {
-                System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.').");
+        while (!coordonneesValides) {
+            try {
+                System.out.println("Choisissez les coordonnées où placer 'X' (format : x y) : ");
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+
+                if (x < 0 || x > carteJeu.obtenirTailleX() || y < 0 || y > carteJeu.obtenirTailleY()) {
+                    System.out.println("Erreur : Veuillez entrer deux entiers valides.");
+                    scanner.nextLine(); // enlève la ligne incorrecte
+                    placerX(joueur);
+                }
+
+                if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
+                    carteJeu.placerX(x, y);
+                    System.out.println("'X' placé avec succès !");
+                    coordonneesValides = true;
+                } else {
+                    System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.').");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur : Veuillez entrer deux entiers valides.");
+                scanner.nextLine(); // enlève la ligne incorrecte
+            } catch (NoSuchElementException e) {
+                System.out.println("Erreur : Entrée non valide. Assurez-vous d'entrer deux entiers.");
+                scanner.nextLine(); // enlève la ligne incorrecte
             }
         }
     }
 }
+
+

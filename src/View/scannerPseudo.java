@@ -7,7 +7,9 @@ public class scannerPseudo {
         Scanner scanner = new Scanner(System.in);
         String[] pseudos = new String[2];
 
+
         //verifie que le pseudo fais plus de deux caractère
+
         for (int i = 0; i < 2; i++) {
             System.out.println("Veuillez entrer le pseudo du Joueur " + (i + 1) + " (entre 2 et 10 caractères): ");
             String pseudo = scanner.next();
