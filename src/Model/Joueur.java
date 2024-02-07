@@ -12,7 +12,6 @@ public class Joueur {
     private String symbole;
 
 
-
     // Constructeur pour initialiser le joueur avec un pseudo, des positions et un symbole
     public Joueur(String pseudo, int positionX, int positionY, String symbole) {
         this.pseudo = pseudo;
@@ -99,7 +98,6 @@ public class Joueur {
     }
 
 
-
     // Méthode pour vérifier s'il y a une collision avec un autre joueur
     public boolean collisionAvecAutreJoueur(int newX, int newY, List<Joueur> joueurs) {
         for (Joueur autreJoueur : joueurs) {
@@ -111,25 +109,56 @@ public class Joueur {
     }
 
 
-
-
-    // Méthode pour vérifier si le joueur peut bouger vers le haut
     public boolean peutBougerVersLeHaut(Carte carte) {
-        return carte.obtenirContenuCase(positionX, positionY - 1).equals(".");
+        int newX = obtenirPositionX();
+        int newY = obtenirPositionY() - 1;
+
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers le bas
     public boolean peutBougerVersLeBas(Carte carte) {
-        return carte.obtenirContenuCase(positionX, positionY + 1).equals(".");
+        int newX = obtenirPositionX();
+        int newY = obtenirPositionY() + 1;
+
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers la gauche
     public boolean peutBougerVersLaGauche(Carte carte) {
-        return carte.obtenirContenuCase(positionX - 1, positionY).equals(".");
+        int newX = obtenirPositionX() - 1;
+        int newY = obtenirPositionY();
+
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers la droite
     public boolean peutBougerVersLaDroite(Carte carte) {
-        return carte.obtenirContenuCase(positionX + 1, positionY).equals(".");
+        int newX = obtenirPositionX() + 1;
+        int newY = obtenirPositionY();
+
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
+
+    public static boolean joueursBloques(List<Joueur> joueurs, Carte carte) {
+        for (Joueur joueur : joueurs) {
+            if (joueurBloque(joueur, joueurs, carte)) {
+                return true; // Le joueur est bloqué dans toutes les directions
+            }
+        }
+        return false; // Aucun joueur n'est bloqué dans toutes les directions
+    }
+
+    private static boolean joueurBloque(Joueur joueur, List<Joueur> joueurs, Carte carte) {
+        boolean bloqueHaut = !joueur.peutBougerVersLeHaut(carte);
+        boolean bloqueBas = !joueur.peutBougerVersLeBas(carte);
+        boolean bloqueGauche = !joueur.peutBougerVersLaGauche(carte);
+        boolean bloqueDroite = !joueur.peutBougerVersLaDroite(carte);
+
+        // Si le joueur est bloqué dans toutes les directions, il est considéré comme bloqué
+        return bloqueHaut && bloqueBas && bloqueGauche && bloqueDroite;
+    }
+    public boolean estBloque(Carte carte) {
+        return !peutBougerVersLeHaut(carte) && !peutBougerVersLeBas(carte)
+                && !peutBougerVersLaGauche(carte) && !peutBougerVersLaDroite(carte);
+    }
+
+
 }

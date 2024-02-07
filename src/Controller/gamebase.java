@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static src.Model.Joueur.joueursBloques;
+
 public class gamebase {
 
     private static boolean estTermine = false;
@@ -19,10 +21,7 @@ public class gamebase {
     public static Joueur getJoueurActuel() {
         return joueurActuel;
     }
-
     private static Carte carteJeu;
-
-
 
     private static Joueur joueurActuel;
 
@@ -41,6 +40,14 @@ public class gamebase {
             tourJoueur(joueurActuel);
             joueurActuel = (joueurActuel == joueur1) ? joueur2 : joueur1;
         }
+
+        // Afficher le joueur bloqué lorsque le jeu est terminé
+        for (Joueur joueur : carteJeu.getJoueurs()) {
+            if (joueur.estBloque(carteJeu)) {
+                System.out.println("Le jeu est terminé. " + joueur.obtenirPseudo() + " est bloqué !");
+                return;
+            }
+        }
     }
 
     private static void tourJoueur(Joueur joueur) {
@@ -58,8 +65,17 @@ public class gamebase {
             tourJoueur(joueur); // Répéter le tour du joueur
         } else {
             placerX(joueur);
+
+            // Vérifier si tous les joueurs sont bloqués après le placement de "X"
+            if (joueursBloques(carteJeu.getJoueurs(), carteJeu)) {
+                carteJeu.afficher();
+                System.out.println("Le jeu est terminé. Tous les joueurs sont bloqués !");
+                estTermine = true;  // Mettre fin au jeu
+                return;  // Sortir de la méthode et du tour du joueur
+            }
         }
     }
+
 
     private static void deplacement(Joueur joueur) {
         Scanner scanner = new Scanner(System.in);
