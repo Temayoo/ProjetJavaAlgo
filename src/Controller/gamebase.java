@@ -18,9 +18,11 @@ public class gamebase {
     public static void setJoueurActuel(Joueur joueurActuel) {
         gamebase.joueurActuel = joueurActuel;
     }
+
     public static Joueur getJoueurActuel() {
         return joueurActuel;
     }
+
     private static Carte carteJeu;
 
     private static Joueur joueurActuel;
@@ -128,13 +130,24 @@ public class gamebase {
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
 
-                if (x < 0 || x > carteJeu.obtenirTailleX() || y < 0 || y > carteJeu.obtenirTailleY()) {
-                    System.out.println("Erreur : Veuillez entrer deux entiers valides.");
+                if (x < 0 || x >= carteJeu.obtenirTailleX() || y < 0 || y >= carteJeu.obtenirTailleY()) {
+                    System.out.println("Erreur : Veuillez entrer des coordonnées valides.");
                     scanner.nextLine();
-                    placerX(joueur);
+                    continue;
                 }
 
-                if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
+                // Vérifier s'il y a un joueur à la position choisie
+                boolean joueurPresent = false;
+                for (Joueur autreJoueur : carteJeu.getJoueurs()) {
+                    if (autreJoueur.obtenirPositionX() == x && autreJoueur.obtenirPositionY() == y) {
+                        joueurPresent = true;
+                        break;
+                    }
+                }
+
+                if (joueurPresent) {
+                    System.out.println("Vous ne pouvez pas placer 'X' sur la position d'un autre joueur.");
+                } else if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
                     carteJeu.placerX(x, y);
                     System.out.println("'X' placé avec succès !");
                     coordonneesValides = true;
