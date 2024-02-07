@@ -28,9 +28,11 @@ public class gamebase {
 
     public static void demarrerJeu() {
         String[] pseudos = src.View.scannerPseudo.demanderPseudos();
+
         joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1");
         joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2");
         carteJeu = new Carte(12, 11, joueur1, joueur2);
+
         carteJeu.genererCarte();
         joueurActuel = (Math.random() < 0.5) ? joueur1 : joueur2;
 
