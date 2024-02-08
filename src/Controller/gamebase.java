@@ -2,6 +2,9 @@ package src.Controller;
 
 import src.Model.Carte;
 import src.Model.Joueur;
+import src.View.cli;
+import src.View.cliFinDePartie;
+
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,7 +16,7 @@ public class gamebase {
 
     private static final Joueur Joueur = null;
     private static final Carte Carte = null;
-    private static boolean estTermine = false;
+    public static boolean estTermine = false;
     
     public static boolean isEstTermine() {
         return estTermine;
@@ -32,11 +35,19 @@ public class gamebase {
 
         carteJeu.genererCarte();
         Joueur joueurActuel = (Math.random() < 0.5) ? joueur1 : joueur2;
+        estTermine = false;
 
         while (!estTermine) {
             carteJeu.afficher();
             tour.tourJoueur( joueurActuel, carteJeu);
             joueurActuel = (joueurActuel == joueur1) ? joueur2 : joueur1;
+        }
+
+        // Afficher le joueur bloqué lorsque le jeu est terminé
+        for (Joueur joueur : carteJeu.getJoueurs()) {
+            if (mouvement.estBloque(carteJeu, joueur)) {
+                src.View.cliFinDePartie.finDePartie();
+            }
         }
     
     }

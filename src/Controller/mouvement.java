@@ -15,7 +15,7 @@ public class mouvement {
         int newX = joueur.positionX;
         int newY = joueur.positionY - 1;
 
-        if (!collisionAvecAutreJoueur(newX, newY, joueurs, joueurs)) {
+        if (!collisionAvecAutreJoueur(newX, newY, joueurs)) {
             if (carte.obtenirContenuCase(newX, newY).equals(".")) {
                 joueur.positionY = newY;
             }
@@ -29,7 +29,7 @@ public class mouvement {
         int newX = joueur.positionX;
         int newY = joueur.positionY + 1;
 
-        if (!collisionAvecAutreJoueur(newX, newY, joueurs, joueurs)) {
+        if (!collisionAvecAutreJoueur(newX, newY, joueurs)) {
             if (carte.obtenirContenuCase(newX, newY).equals(".")) {
                 joueur.positionY = newY;
             }
@@ -43,7 +43,7 @@ public class mouvement {
         int newX = joueur.positionX - 1;
         int newY = joueur.positionY;
 
-        if (!collisionAvecAutreJoueur(newX, newY, joueurs, joueurs)) {
+        if (!collisionAvecAutreJoueur(newX, newY, joueurs)) {
             if (carte.obtenirContenuCase(newX, newY).equals(".")) {
                 joueur.positionX = newX;
             }
@@ -57,7 +57,7 @@ public class mouvement {
         int newX = joueur.positionX + 1;
         int newY = joueur.positionY;
 
-        if (!collisionAvecAutreJoueur(newX, newY, joueurs, joueurs)) {
+        if (!collisionAvecAutreJoueur(newX, newY, joueurs)) {
             if (carte.obtenirContenuCase(newX, newY).equals(".")) {
                 joueur.positionX = newX;
             }
@@ -68,24 +68,40 @@ public class mouvement {
         }
     }
 
-     // Méthode pour vérifier si le joueur peut bouger vers le haut
-     public boolean peutBougerVersLeHaut(Carte carte,int positionX,int positionY) {
-        return carte.obtenirContenuCase(positionX, positionY - 1).equals(".");
+    // Vérifie si le joueur peut se déplacer vers le haut sur une case vide
+    public static boolean peutBougerVersLeHaut(Carte carte, Joueur joueur) {
+        int newX = joueur.obtenirPositionX();
+        int newY = joueur.obtenirPositionY() - 1;
+
+        // Vérifie s'il n'y a pas de collision avec un autre joueur et si la case est vide
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers le bas
-    public boolean peutBougerVersLeBas(Carte carte,int positionX,int positionY) {
-        return carte.obtenirContenuCase(positionX, positionY + 1).equals(".");
+    // Vérifie si le joueur peut se déplacer vers le bas sur une case vide
+    public static boolean peutBougerVersLeBas(Carte carte, Joueur joueur) {
+        int newX = joueur.obtenirPositionX();
+        int newY = joueur.obtenirPositionY() + 1;
+
+        // Vérifie s'il n'y a pas de collision avec un autre joueur et si la case est vide
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers la gauche
-    public boolean peutBougerVersLaGauche(Carte carte,int positionX,int positionY) {
-        return carte.obtenirContenuCase(positionX - 1, positionY).equals(".");
+    // Vérifie si le joueur peut se déplacer vers la gauche sur une case vide
+    public static boolean peutBougerVersLaGauche(Carte carte, Joueur joueur ) {
+        int newX = joueur.obtenirPositionX() - 1;
+        int newY = joueur.obtenirPositionY();
+        
+        // Vérifie s'il n'y a pas de collision avec un autre joueur et si la case est vide
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
-    // Méthode pour vérifier si le joueur peut bouger vers la droite
-    public boolean peutBougerVersLaDroite(Carte carte,int positionX,int positionY) {
-        return carte.obtenirContenuCase(positionX + 1, positionY).equals(".");
+    // Vérifie si le joueur peut se déplacer vers la droite sur une case vide
+    public static boolean peutBougerVersLaDroite(Carte carte, Joueur joueur) {
+        int newX = joueur.obtenirPositionX() + 1;
+        int newY = joueur.obtenirPositionY();
+
+        // Vérifie s'il n'y a pas de collision avec un autre joueur et si la case est vide
+        return !collisionAvecAutreJoueur(newX, newY, carte.getJoueurs()) && carte.obtenirContenuCase(newX, newY).equals(".");
     }
 
     
@@ -119,8 +135,7 @@ public class mouvement {
                 }
 
                 // Vérifier si le joueur s'est réellement déplacé
-                // TODO VERIFIER POURQUOI ON NE RENTRE PAS DANS LA CONDITION
-                if (ancienX != joueur.obtenirPositionX() || ancienY != joueur.obtenirPositionY()) {
+              if (ancienX != joueur.obtenirPositionX() || ancienY != joueur.obtenirPositionY()) {
                     mouvementValide = true;
                 }
             } catch (InputMismatchException e) {
@@ -131,14 +146,19 @@ public class mouvement {
         carteJeu.afficher();
     }
 
-      // Méthode pour vérifier s'il y a une collision avec un autre joueur
-      public static boolean collisionAvecAutreJoueur(int newX, int newY, List<Joueur> joueurs,List<Joueur> joueurs2) {
+      // Méthode pour vérifier s'il y a une collision avec un autre joueur en fonction des coordonnées
+    public static boolean collisionAvecAutreJoueur(int newX, int newY, List<Joueur> joueurs) {
+        // on parcourt une boucle de tout les joueurs qu'on récupére
         for (Joueur autreJoueur : joueurs) {
-            if (joueurs2 != joueurs && ((Joueur) joueurs2).obtenirPositionX() == newX && ((Joueur) joueurs2).obtenirPositionY() == newY) {
+            if (autreJoueur != joueurs && autreJoueur.obtenirPositionX() == newX && autreJoueur.obtenirPositionY() == newY) {
                 return true; // Il y a une collision avec un autre joueur
             }
         }
         return false; // Aucune collision avec un autre joueur
     }
 
+    public static boolean estBloque(Carte carte, Joueur joueur) {
+        return !peutBougerVersLeHaut(carte, joueur) && !peutBougerVersLeBas(carte, joueur)
+                && !peutBougerVersLaGauche(carte, joueur) && !peutBougerVersLaDroite(carte, joueur);
+    }
 }
