@@ -13,9 +13,13 @@ public class cliFinDePartie {
         Scanner scanner = new Scanner(System.in);
 
         try {
-            System.out.println("1. Rejouer");
-            System.out.println("2. Retourner au menu principal");
-            System.out.print("Choisissez une option : ");
+            System.out.println("╔════════════════════════════════╗");
+            System.out.println("║         Menu                   ║");
+            System.out.println("╠════════════════════════════════╣");
+            System.out.println("║ 1. Rejouer                     ║");
+            System.out.println("║ 2. Retourner au menu principal ║");
+            System.out.println("║ Choisissez une option          ║");
+            System.out.println("╚════════════════════════════════╝");
 
             int choix = scanner.nextInt();
 

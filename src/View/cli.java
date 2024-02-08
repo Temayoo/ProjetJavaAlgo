@@ -6,11 +6,14 @@ import java.util.Scanner;
 public class cli {
 
     public static void menu(){
-        System.out.println( "Menu");
-        System.out.println(" 1. Jouer");
-        System.out.println(" 2. Score");
-        System.out.println(" 3. Règles");
-        System.out.println(" 4. Quitter");
+        System.out.println("╔════════════════════════╗");
+        System.out.println("║         Menu           ║");
+        System.out.println("╠════════════════════════╣");
+        System.out.println("║ 1. Commencer           ║");
+        System.out.println("║ 2. Score               ║");
+        System.out.println("║ 2. Règles              ║");
+        System.out.println("║ 3. Quitter             ║");
+        System.out.println("╚════════════════════════╝");
         // different choix cli
 
         Scanner scanner = new Scanner(System.in); // lancement d'un scanner
