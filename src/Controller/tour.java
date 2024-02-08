@@ -35,8 +35,6 @@ public class tour {
             System.out.println( "\r\n" + "Le jeu est terminé !");
             gamebase.estTermine = true;  // Mettre fin au jeu
 
-
-
         }
     }
     

@@ -3,6 +3,8 @@ package src.Controller;
 import src.Model.Carte;
 import src.Model.Joueur;
 
+import java.util.ArrayList;
+
 
 public class gamebase {
 
@@ -45,8 +47,9 @@ public class gamebase {
                 // Afficher le joueur gagnant
                 System.out.println( "\r\n" + "Le joueur " + gagnant.obtenirPseudo() + " a gagné la partie!" + "\r\n" );
                 src.View.cliFinDePartie.finDePartie();
+
+
             }
         }
     }
-
 }
