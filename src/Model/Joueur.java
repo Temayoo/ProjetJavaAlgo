@@ -11,7 +11,7 @@ public class Joueur {
     public int positionX;
     public int positionY;
     private String symbole;
-    private int score;
+
 
     public static Joueur joueur1;
     public static Joueur joueur2;
@@ -23,12 +23,11 @@ public class Joueur {
 
 
     // Constructeur pour initialiser le joueur avec un pseudo, des positions et un symbole
-    public Joueur(String pseudo, int positionX, int positionY, String symbole, int score) {
+    public Joueur(String pseudo, int positionX, int positionY, String symbole) {
         this.pseudo = pseudo;
         this.positionX = positionX;
         this.positionY = positionY;
         this.symbole = symbole;
-        this.score = score;
     }
 
     public String obtenirPseudo() {
@@ -49,16 +48,6 @@ public class Joueur {
         return positionY;
     }  
 
-    // Méthode pour obtenir le score du joueur
-    public int obtenirScore() {
-        return score;
-    }
-
-    // Méthode pour mettre à jour le score du joueur
-    public void mettreAJourScore(int points) {
-        score += points;
-    }
-    
     public static void setJoueurActuel(Joueur Joueur) {
         joueurActuel = Joueur;
     }

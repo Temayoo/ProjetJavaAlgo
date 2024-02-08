@@ -34,12 +34,10 @@ public class tour {
             carteJeu.afficher();
             System.out.println( "\r\n" + "Le jeu est terminé !");
             gamebase.estTermine = true;  // Mettre fin au jeu
-
-
-
         }
+
     }
-    
+
     private static void placerX(Joueur joueur, Carte carteJeu) {
         Scanner scanner = new Scanner(System.in);
         boolean coordonneesValides = false;
