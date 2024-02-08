@@ -1,7 +1,7 @@
 package src.View;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 
 public class cli {
 
@@ -25,13 +25,16 @@ public class cli {
                     src.Controller.gamebase.demarrerJeu(); // lance la fonction de jeu dans gamebase
                     break;
                 case 2:
-                    System.out.println(" Score "+"\r\n"+" ");
+                    System.out.println("\r\n" + "Voici les scores des differents joueurs" + "\r\n" + " ");
+                    src.View.CreationFichier.lectureFichier("DossierScore/score.txt");  // Lis le fichier txt
                     menu();
+                    break;
                 case 3:
                     System.out.println("Règles");
                     System.out.println("À chaque tour un joueur devra déplacer son pion d’une case (verticalement ou horizontalement),"+"\r\n"+"puis detruire une case du plateau afin de bloquer l’(es) autre(s) joueur(s)."+"\r\n"+"Le dernier joueur pouvant encore se déplacer gagne."+"\r\n"+"- Un joueur ne peut pas détruire une case occupée."+"\r\n"+"- Un joueur ne peut pas occuper une case détruite ou une case déjà occupée.\n" +
                             "- Un joueur bloqué pendant un tour est déclaré perdant. "+"\r\n"+" "); // ecrit les regles
                     menu();
+                    break;
                 case 4:
                     System.out.println(" Quitter ");
                     break;
@@ -49,7 +52,4 @@ public class cli {
         }
 
     }
-
-
-
 }

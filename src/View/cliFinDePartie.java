@@ -25,10 +25,10 @@ public class cliFinDePartie {
 
             switch (choix) {
                 case 1:
-                    demarrerJeu();
+                    demarrerJeu(); // lance la fonction demarrerjeu pour recommencer une partie
                     break;
                 case 2:
-                    menu();
+                    menu(); // renvoie au menu
                     break;
                 default:
                     System.out.println("\033[H\033[2J");
