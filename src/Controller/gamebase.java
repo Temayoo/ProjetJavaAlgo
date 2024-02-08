@@ -2,15 +2,7 @@ package src.Controller;
 
 import src.Model.Carte;
 import src.Model.Joueur;
-import src.View.cli;
-import src.View.cliFinDePartie;
 
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
-import src.Controller.tour;
 
 public class gamebase {
 
@@ -46,10 +38,15 @@ public class gamebase {
         // Afficher le joueur bloqué lorsque le jeu est terminé
         for (Joueur joueur : carteJeu.getJoueurs()) {
             if (mouvement.estBloque(carteJeu, joueur)) {
+                // Trouver le joueur gagnant et perdant
+                Joueur perdant = joueur;
+                Joueur gagnant = (joueur == joueur1) ? joueur2 : joueur1;
+
+                // Afficher le joueur gagnant
+                System.out.println( "\r\n" + "Le joueur " + gagnant.obtenirPseudo() + " a gagné la partie!" + "\r\n" );
                 src.View.cliFinDePartie.finDePartie();
             }
         }
-    
     }
 
 }

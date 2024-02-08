@@ -8,6 +8,9 @@ import java.util.Scanner;
 import src.Model.Joueur;
 import src.Model.Carte;
 
+import static src.Model.Joueur.joueur1;
+import static src.Model.Joueur.joueur2;
+
 public class tour {
 
      static void tourJoueur(Joueur joueur, Carte carteJeu) {
@@ -29,10 +32,11 @@ public class tour {
         // Vérifier si tous les joueurs sont bloqués après le placement de "X"
         if (joueursBloques(carteJeu.getJoueurs(), carteJeu)) {
             carteJeu.afficher();
-            System.out.println("Le jeu est terminé !");
+            System.out.println( "\r\n" + "Le jeu est terminé !");
             gamebase.estTermine = true;  // Mettre fin au jeu
 
-            // Trouver le joueur gagnant et perdant
+
+
         }
     }
     

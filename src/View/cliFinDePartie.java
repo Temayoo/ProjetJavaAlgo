@@ -13,7 +13,6 @@ public class cliFinDePartie {
         Scanner scanner = new Scanner(System.in);
 
         try {
-            System.out.println("La partie est terminée !");
             System.out.println("1. Rejouer");
             System.out.println("2. Retourner au menu principal");
             System.out.print("Choisissez une option : ");
