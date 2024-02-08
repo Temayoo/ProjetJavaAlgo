@@ -7,6 +7,26 @@ import java.util.Map;
 
 public class CreationFichier {
 
+    public static void creationFichier()
+    {
+        try {
+
+            // Recevoir le fichier
+            File f = new File("DossierScore/score.txt");
+
+            // Créer un nouveau fichier
+            // Vérifier s'il n'existe pas
+            if (f.createNewFile())
+                System.out.println("File created");
+            else
+                System.out.println("File already exists");
+        }
+        catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+
     // Méthode pour écrire les scores dans un fichier
     public static void ecrireScore(String nomFichier, Map<String, Integer> scores) {
         Path path = Paths.get(nomFichier);
