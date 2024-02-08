@@ -9,13 +9,15 @@ public class Joueur {
     private int positionX;
     private int positionY;
     private String symbole;
+    private int score;
 
     // Constructeur pour initialiser le joueur avec un pseudo, des positions et un symbole
-    public Joueur(String pseudo, int positionX, int positionY, String symbole) {
+    public Joueur(String pseudo, int positionX, int positionY, String symbole, int score) {
         this.pseudo = pseudo;
         this.positionX = positionX;
         this.positionY = positionY;
         this.symbole = symbole;
+        this.score = score;
     }
 
     // Méthode pour obtenir le pseudo du joueur
@@ -37,6 +39,17 @@ public class Joueur {
     public int obtenirPositionY() {
         return positionY;
     }
+
+    // Méthode pour obtenir le score du joueur
+    public int obtenirScore() {
+        return score;
+    }
+
+    // Méthode pour mettre à jour le score du joueur
+    public void mettreAJourScore(int points) {
+        score += points;
+    }
+
 
 
     // Méthode pour déplacer le joueur vers le haut s'il y a une case libre pas de joueur en fonction de coordonées et un "."
