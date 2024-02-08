@@ -8,11 +8,12 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static src.Model.Joueur.joueursBloques;
+import static src.View.cliFinDePartie.finDePartie;
 
 public class gamebase {
 
     // Variable indiquant si le jeu est terminé
-    private static boolean estTermine = false;
+    public static boolean estTermine = false;
 
     // Joueurs du jeu
     private static Joueur joueur1;
@@ -30,14 +31,14 @@ public class gamebase {
         String[] pseudos = src.View.scannerPseudo.demanderPseudos();
 
         // Initialiser les joueurs et la carte
-        joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1");
-        joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2");
+        joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1",0);
+        joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2",0);
         carteJeu = new Carte(12, 11, joueur1, joueur2);
 
         // Générer la carte et déterminer aléatoirement le joueur actuel
         carteJeu.genererCarte();
         joueurActuel = (Math.random() < 0.5) ? joueur1 : joueur2;
-
+        estTermine = false;
         // Boucle principale du jeu
         while (!estTermine) {
             carteJeu.afficher();
@@ -58,14 +59,14 @@ public class gamebase {
     private static void tourJoueur(Joueur joueur) {
         System.out.println("Tour de " + joueur.obtenirPseudo());
 
-        // Sauvegarde des coordonnées actuelles du joueur pour verifier si il a bougé
+        // Sauvegarde des coordonnées actuelles du joueur pour vérifier s'il a bougé
         int ancienX = joueur.obtenirPositionX();
         int ancienY = joueur.obtenirPositionY();
 
         // Appel de la méthode de déplacement du joueur
         deplacement(joueur);
 
-        // Vérifier si le joueur s'est réellement déplacé en regardant c'est coordonnées
+        // Vérifier si le joueur s'est réellement déplacé en regardant ses coordonnées
         if (ancienX == joueur.obtenirPositionX() && ancienY == joueur.obtenirPositionY()) {
             System.out.println("Le déplacement n'est pas valide. Veuillez choisir une autre direction.");
             tourJoueur(joueur); // Répéter le tour du joueur
@@ -78,7 +79,23 @@ public class gamebase {
                 carteJeu.afficher();
                 System.out.println("Le jeu est terminé !");
                 estTermine = true;  // Mettre fin au jeu
-                return;  // Sortir de la méthode et du tour du joueur
+
+                // Trouver le joueur gagnant et perdant
+                Joueur perdant = joueur;
+                Joueur gagnant = (joueur == joueur1) ? joueur2 : joueur1;
+
+                // Mettre à jour les scores
+                perdant.mettreAJourScore(-2);
+                gagnant.mettreAJourScore(5);
+
+                // Afficher les scores mis à jour
+                System.out.println("Scores mis à jour:");
+                System.out.println(joueur1.obtenirPseudo() + ": " + joueur1.obtenirScore() + " points");
+                System.out.println(joueur2.obtenirPseudo() + ": " + joueur2.obtenirScore() + " points");
+
+                // Afficher le joueur gagnant
+                System.out.println("Le joueur " + gagnant.obtenirPseudo() + " a gagné la partie!");
+                finDePartie();
             }
         }
     }
