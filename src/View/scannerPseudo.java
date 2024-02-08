@@ -3,6 +3,7 @@ package src.View;
 import java.util.Scanner;
 
 public class scannerPseudo {
+    //variable pour enregistrer les pseudos
     public static String[] demanderPseudos() {
         Scanner scanner = new Scanner(System.in);
         String[] pseudos = new String[2];
