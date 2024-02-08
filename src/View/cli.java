@@ -1,7 +1,7 @@
 package src.View;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 
 public class cli {
 
@@ -22,7 +22,8 @@ public class cli {
                     src.Controller.gamebase.demarrerJeu(); // lance la fonction de jeu dans gamebase
                     break;
                 case 2:
-                    System.out.println(" Score "+"\r\n"+" ");
+                    src.View.CreationFichier.ecrireScore("\r\n" +"Voici les scores des differents joueurs" + "\r\n" + " ");
+                    src.View.CreationFichier.lectureFichier();
                     menu();
                 case 3:
                     System.out.println("Règles");
@@ -46,7 +47,4 @@ public class cli {
         }
 
     }
-
-
-
 }
