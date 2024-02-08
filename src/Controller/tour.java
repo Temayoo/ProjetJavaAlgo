@@ -37,7 +37,7 @@ public class tour {
         }
 
     }
-
+        // methode placerX permet de mettre les bloques sur la carte pour gagner le jeu
     private static void placerX(Joueur joueur, Carte carteJeu) {
         Scanner scanner = new Scanner(System.in);
         boolean coordonneesValides = false;
@@ -48,14 +48,14 @@ public class tour {
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
 
-                
+                // verifier si il le pose bien sur les coordonnées de la carte
                 if (x < 0 || x >= carteJeu.obtenirTailleX() || y < 0 || y >= carteJeu.obtenirTailleY()) {
                     System.out.println("Erreur : Veuillez entrer deux entiers valides.");
                     scanner.nextLine();
                     placerX(joueur, carteJeu);
                     continue;
                 }
-
+                // verifie si un joueur est sur la case
                 boolean joueurPresent = false;
                 for (Joueur autreJoueur : carteJeu.getJoueurs()) {
                     if (autreJoueur.obtenirPositionX() == x && autreJoueur.obtenirPositionY() == y) {
