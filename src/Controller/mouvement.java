@@ -22,7 +22,7 @@ public class mouvement {
                 joueur.positionY = newY;
             }
         } else {
-            System.out.println("Collision avec un autre joueur ! Choisissez une autre direction.");
+            System.out.println("\r\n" +"Collision avec un autre joueur ! Choisissez une autre direction.");
         }
     }
 
@@ -36,7 +36,7 @@ public class mouvement {
                 joueur.positionY = newY;
             }
         } else {
-            System.out.println("Collision avec un autre joueur ! Choisissez une autre direction.");
+            System.out.println("\r\n" +"Collision avec un autre joueur ! Choisissez une autre direction.");
         }
     }
 
@@ -50,7 +50,7 @@ public class mouvement {
                 joueur.positionX = newX;
             }
         } else {
-            System.out.println("Collision avec un autre joueur ! Choisissez une autre direction.");
+            System.out.println("\r\n" +"Collision avec un autre joueur ! Choisissez une autre direction.");
         }
     }
 
@@ -65,7 +65,7 @@ public class mouvement {
             }
         } else {
 
-            System.out.println("Collision avec un autre joueur ! Choisissez une autre direction.");
+            System.out.println("\r\n" +"Collision avec un autre joueur ! Choisissez une autre direction.");
 
         }
     }
@@ -113,7 +113,7 @@ public class mouvement {
 
         while (!mouvementValide) {
             try {
-                System.out.println("Choisissez une direction (z - Haut / s - Bas / q - Gauche / d - Droite / b - Quitter) : ");
+                System.out.println("\r\n" +"Choisissez une direction (z - Haut / s - Bas / q - Gauche / d - Droite / b - Quitter) : ");
                 String direction = scanner.nextLine().toLowerCase();
 
                 int ancienX = joueur.obtenirPositionX();
@@ -138,7 +138,7 @@ public class mouvement {
                         menu(); // Renvoie au menu
                         break;
                     default:
-                        System.out.println("Direction invalide ! Veuillez choisir z, s, q, d ou b.");
+                        System.out.println("\r\n" +"Direction invalide ! Veuillez choisir z, s, q, d ou b.");
                 }
 
                 // Vérifier si le joueur s'est réellement déplacé
@@ -146,7 +146,7 @@ public class mouvement {
                     mouvementValide = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erreur de saisie. Veuillez entrer une direction valide.");
+                System.out.println("\r\n" +"Erreur de saisie. Veuillez entrer une direction valide.");
                 scanner.nextLine();
             }
         }

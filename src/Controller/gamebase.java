@@ -52,8 +52,6 @@ public class gamebase {
             carteJeu.afficher();
             tour.tourJoueur(joueurActuel, carteJeu);
             joueurActuel = (joueurActuel == joueur1) ? joueur2 : joueur1;
-            System.out.println("\033[H\033[2J");
-            System.out.flush();
         }
 
         // Vérification des joueurs bloqués
@@ -83,10 +81,5 @@ public class gamebase {
 
         scores.put(pseudoGagnant, scores.getOrDefault(pseudoGagnant, 0) + 5);
         scores.put(pseudoPerdant, scores.getOrDefault(pseudoPerdant, 0) - 2);
-    }
-
-    // Méthode pour afficher les scores finaux
-    private static void afficherScores() {
-        System.out.println("Scores finaux : " + scores);
     }
 }

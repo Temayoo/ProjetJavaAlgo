@@ -21,13 +21,17 @@ public class tour {
         int ancienY = joueur.obtenirPositionY();
 
         mouvement.deplacement(joueur, carteJeu);
+         System.out.println("\033[H\033[2J");
+         System.out.flush();
 
         // Vérifier si le joueur s'est réellement déplacé
         if (ancienX == joueur.obtenirPositionX() && ancienY == joueur.obtenirPositionY()) {
-            System.out.println("Le déplacement n'est pas valide. Veuillez choisir une autre direction.");
+            System.out.println("\r\n" +"Le déplacement n'est pas valide. Veuillez choisir une autre direction.");
             tourJoueur(joueur, carteJeu); // Répéter le tour du joueur
         } else {
             placerX(joueur, carteJeu);
+            System.out.println("\033[H\033[2J");
+            System.out.flush();
         }
         // Vérifier si tous les joueurs sont bloqués après le placement de "X"
         if (joueursBloques(carteJeu.getJoueurs(), carteJeu)) {
@@ -45,13 +49,13 @@ public class tour {
         while (!coordonneesValides) {
             try {
 
-                System.out.println("Choisissez les coordonnées où placer 'X' (format : Largeur , Longueur) : ");
+                System.out.println("\r\n" +"Choisissez les coordonnées où placer 'X' (format : Largeur , Longueur) : ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
 
                 // verifier si il le pose bien sur les coordonnées de la carte
                 if (x < 0 || x >= carteJeu.obtenirTailleX() || y < 0 || y >= carteJeu.obtenirTailleY()) {
-                    System.out.println("Erreur : Veuillez entrer deux entiers valides.");
+                    System.out.println("\r\n" +"Erreur : Veuillez entrer deux entiers valides.");
                     scanner.nextLine();
                     placerX(joueur, carteJeu);
                     continue;
@@ -67,19 +71,19 @@ public class tour {
 
                 // Gérer le placement de "X" en fonction des conditions
                 if (joueurPresent) {
-                    System.out.println("Vous ne pouvez pas placer 'X' sur la position d'un autre joueur.");
+                    System.out.println("\r\n" +"Vous ne pouvez pas placer 'X' sur la position d'un autre joueur.");
                 } else if (carteJeu.obtenirContenuCase(x, y).equals(".")) {
                     carteJeu.placerX(x, y);
-                    System.out.println("'X' placé avec succès !");
+                    System.out.println("\r\n" +"'X' placé avec succès !");
                     coordonneesValides = true;
                 } else {
-                    System.out.println("Vous ne pouvez placer 'X' que sur une case libre ('.')");
+                    System.out.println("\r\n" +"Vous ne pouvez placer 'X' que sur une case libre ('.')");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erreur : Veuillez entrer deux entiers valides.");
+                System.out.println("\r\n" +"Erreur : Veuillez entrer deux entiers valides.");
                 scanner.nextLine();
             } catch (NoSuchElementException e) {
-                System.out.println("Erreur : Entrée non valide. Assurez-vous d'entrer deux entiers.");
+                System.out.println("\r\n" +"Erreur : Entrée non valide. Assurez-vous d'entrer deux entiers.");
                 scanner.nextLine();
             }
         }
