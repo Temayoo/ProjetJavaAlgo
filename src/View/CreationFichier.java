@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class CreationFichier {
 
@@ -54,5 +55,40 @@ public class CreationFichier {
             e.printStackTrace();
         }
     }
+
+    // Méthode pour lire les scores depuis un fichier et les retourner sous forme de TreeMap
+    public static TreeMap<String, Integer> lireScores(String cheminFichier) {
+        // Crée un TreeMap pour stocker les scores (clé: pseudo, valeur: score)
+        TreeMap<String, Integer> scores = new TreeMap<>();
+
+        try (BufferedReader lecteur = new BufferedReader(new FileReader(cheminFichier))) {
+            // Crée un BufferedReader pour lire le fichier
+
+            String ligne;
+
+            // Lit chaque ligne du fichier
+            while ((ligne = lecteur.readLine()) != null) {
+                // Divise la ligne en deux parties séparées par ": "
+                String[] parts = ligne.split(": ");
+
+                // Vérifie si la ligne est bien au format attendu (pseudo: score)
+                if (parts.length == 2) {
+                    // Extrayez le pseudo et le score de chaque partie
+                    String pseudo = parts[0];
+                    int score = Integer.parseInt(parts[1]);
+
+                    // Ajoute le pseudo et le score au TreeMap
+                    scores.put(pseudo, score);
+                }
+            }
+        } catch (IOException e) {
+            // Gère les exceptions liées à la lecture du fichier
+            e.printStackTrace();
+        }
+
+        // Renvoie le TreeMap contenant les scores lus depuis le fichier
+        return scores;
+    }
+
 }
 

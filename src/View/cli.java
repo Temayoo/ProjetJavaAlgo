@@ -11,8 +11,8 @@ public class cli {
         System.out.println("╠════════════════════════╣");
         System.out.println("║ 1. Commencer           ║");
         System.out.println("║ 2. Score               ║");
-        System.out.println("║ 2. Règles              ║");
-        System.out.println("║ 3. Quitter             ║");
+        System.out.println("║ 3. Règles              ║");
+        System.out.println("║ 4. Quitter             ║");
         System.out.println("╚════════════════════════╝");
         // different choix cli
 
