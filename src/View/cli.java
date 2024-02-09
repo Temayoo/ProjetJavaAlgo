@@ -21,10 +21,14 @@ public class cli {
             int choice = scanner.nextInt(); // récupere l'input du scanner
             switch(choice){
                 case 1:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     System.out.println("Commencez " + "\r\n" + " ");
                     src.Controller.gamebase.demarrerJeu(); // lance la fonction de jeu dans gamebase
                     break;
                 case 2:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     System.out.println("\r\n" + "Comment voulez vous triez les scores" + "\r\n" + " ");
                     cliTriScore.scoreCli();
                     break;

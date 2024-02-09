@@ -7,6 +7,8 @@ import java.util.Scanner;
 import src.Model.Carte;
 import src.Model.Joueur;
 
+import static src.View.cli.menu;
+
 
 public class mouvement {
     
@@ -111,7 +113,7 @@ public class mouvement {
 
         while (!mouvementValide) {
             try {
-                System.out.println("Choisissez une direction (z pour haut, s pour bas, q pour gauche, d pour droite) : ");
+                System.out.println("Choisissez une direction (z - Haut / s - Bas / q - Gauche / d - Droite / b - Quitter) : ");
                 String direction = scanner.nextLine().toLowerCase();
 
                 int ancienX = joueur.obtenirPositionX();
@@ -119,19 +121,24 @@ public class mouvement {
 
                 switch (direction) {
                     case "z":
-                        deplacerVersLeHaut(carteJeu.getJoueurs(), carteJeu,ancienX,ancienY, joueur);
+                        deplacerVersLeHaut(carteJeu.getJoueurs(), carteJeu, ancienX, ancienY, joueur);
                         break;
                     case "s":
-                        deplacerVersLeBas(carteJeu.getJoueurs(), carteJeu,ancienX,ancienY, joueur);
+                        deplacerVersLeBas(carteJeu.getJoueurs(), carteJeu, ancienX, ancienY, joueur);
                         break;
                     case "q":
-                        deplacerVersLaGauche(carteJeu.getJoueurs(), carteJeu,ancienX,ancienY, joueur);
+                        deplacerVersLaGauche(carteJeu.getJoueurs(), carteJeu, ancienX, ancienY, joueur);
                         break;
                     case "d":
-                        deplacerVersLaDroite(carteJeu.getJoueurs(), carteJeu,ancienX,ancienY, joueur);
+                        deplacerVersLaDroite(carteJeu.getJoueurs(), carteJeu, ancienX, ancienY, joueur);
+                        break;
+                    case "b":
+                        System.out.println("\033[H\033[2J");
+                        System.out.flush();
+                        menu(); // Renvoie au menu
                         break;
                     default:
-                        System.out.println("Direction invalide !");
+                        System.out.println("Direction invalide ! Veuillez choisir z, s, q, d ou b.");
                 }
 
                 // Vérifier si le joueur s'est réellement déplacé

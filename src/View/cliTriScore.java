@@ -24,19 +24,27 @@ public class cliTriScore {
 
             switch (choix) {
                 case 1:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     System.out.println("\r\n" + "Voici les scores des differents joueurs pas triés" + "\r\n" + " ");
                     src.View.CreationFichier.lectureFichier("DossierScore/score.txt");  // Lis le fichier txt
                     scoreCli();
                     break;
                 case 2:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     // tri de la map
                     //ecrire dans le ficier la nouvelle liste
                     src.View.CreationFichier.lectureFichier("DossierScore/score.txt");  // Lis le fichier txt
                     break;
                 case 3:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     menu(); // renvoie au menu
                     break;
                 case 4:
+                    System.out.println("\033[H\033[2J");
+                    System.out.flush();
                     menu(); // renvoie au menu
                     break;
                 default:

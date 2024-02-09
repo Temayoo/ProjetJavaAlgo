@@ -52,6 +52,8 @@ public class gamebase {
             carteJeu.afficher();
             tour.tourJoueur(joueurActuel, carteJeu);
             joueurActuel = (joueurActuel == joueur1) ? joueur2 : joueur1;
+            System.out.println("\033[H\033[2J");
+            System.out.flush();
         }
 
         // Vérification des joueurs bloqués
