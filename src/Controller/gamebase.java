@@ -6,14 +6,19 @@ import src.View.CreationFichier;
 import src.View.scannerPseudo;
 import src.View.cliFinDePartie;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
+import static src.Controller.trieScore.chargerScores;
+import static src.Controller.trieScore.sauvegarderScores;
 
 public class gamebase {
     // Chemin pour acceder au document txt ou sont ranger les scores
-    private static final String FICHIER_SCORES = "DossierScore/score.txt";
+    public static final String FICHIER_SCORES = "DossierScore/score.txt";
     // List/Map qui enregistre les scores pseudo/scores
-    private static final Map<String, Integer> scores = new HashMap<>();
+    public static final Map<String, Integer> scores = new HashMap<>();
 
     public static boolean estTermine = false;
 
@@ -27,8 +32,10 @@ public class gamebase {
         gamebase.estTermine = estTermine;
     }
 
+
     // Méthode principale pour démarrer le jeu
     public static void demarrerJeu() {
+        chargerScores();
         // Demande les pseudos des joueurs
         String[] pseudos = scannerPseudo.demanderPseudos();
 
@@ -72,6 +79,7 @@ public class gamebase {
             System.out.println("\r\n" + "Le joueur " + gagnant.obtenirPseudo() + " a gagné la partie!" + "\r\n");
             cliFinDePartie.finDePartie();
         }
+        sauvegarderScores();
     }
 
     // Méthode pour mettre à jour les scores des joueurs
@@ -82,4 +90,5 @@ public class gamebase {
         scores.put(pseudoGagnant, scores.getOrDefault(pseudoGagnant, 0) + 5);
         scores.put(pseudoPerdant, scores.getOrDefault(pseudoPerdant, 0) - 2);
     }
+
 }
