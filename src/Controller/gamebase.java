@@ -33,9 +33,9 @@ public class gamebase {
         String[] pseudos = scannerPseudo.demanderPseudos();
 
         // Initialisation des joueurs et de la carte
-        Joueur joueur1 = new src.Model.Joueur(pseudos[0], 5, 5, "1");
-        Joueur joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2");
-        Carte carteJeu = new Carte(12, 11, joueur1, joueur2);
+        Joueur joueur1 = new src.Model.Joueur(pseudos[0], 6, 6, "1  ");
+        Joueur joueur2 = new src.Model.Joueur(pseudos[1], 6, 5, "2  ");
+        Carte carteJeu = new Carte(13, 12, joueur1, joueur2);
 
         // Génération de la carte
         carteJeu.genererCarte();

@@ -68,9 +68,24 @@ public class Carte {
         }
     }
 
-    // Méthode pour afficher la carte avec les positions des joueurs
+
+
+// Méthode pour afficher la carte avec les positions des joueurs et les coordonnées
     public void afficher() {
+        // Trouver la longueur maximale des chiffres des colonnes
+        int maxColWidth = String.valueOf(tailleX - 1).length() + 2;  // 2 pour les espaces avant et après
+
+        // Afficher la ligne horizontale avec les coordonnées des colonnes
+        System.out.print("    ");  // Décalage ajusté pour aligner les chiffres avec la grille
+        for (int x = 0; x < tailleX; x++) {
+            System.out.printf("%-" + maxColWidth + "s", x);
+        }
+        System.out.println();  // Passer à la ligne après la ligne des coordonnées des colonnes
+
         for (int y = 0; y < tailleY; y++) {
+            // Afficher le numéro de ligne à gauche
+            System.out.printf("%-" + maxColWidth + "s", y);
+
             for (int x = 0; x < tailleX; x++) {
                 // Afficher le symbole du joueur1 si ses coordonnées correspondent à la case actuelle
                 if (joueur1.obtenirPositionX() == x && joueur1.obtenirPositionY() == y) {
@@ -80,12 +95,16 @@ public class Carte {
                 else if (joueur2.obtenirPositionX() == x && joueur2.obtenirPositionY() == y) {
                     System.out.print(joueur2.obtenirSymbole() + " ");
                 } else {
-                    System.out.print(grille[y][x] + " ");  // Afficher le contenu de la grille
+                    System.out.printf("%-" + maxColWidth + "s", grille[y][x] + " ");  // Afficher le contenu de la grille
                 }
             }
             System.out.println();  // Passer à la ligne après chaque ligne de la grille
         }
     }
+
+
+
+
 
     // Méthode pour obtenir le contenu d'une case à des coordonnées spécifiques
     public String obtenirContenuCase(int x, int y) {

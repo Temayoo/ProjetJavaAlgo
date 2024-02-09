@@ -44,7 +44,8 @@ public class tour {
 
         while (!coordonneesValides) {
             try {
-                System.out.println("Choisissez les coordonnées où placer 'X' (format : x y) : ");
+
+                System.out.println("Choisissez les coordonnées où placer 'X' (format : Largeur , Longueur) : ");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
 
