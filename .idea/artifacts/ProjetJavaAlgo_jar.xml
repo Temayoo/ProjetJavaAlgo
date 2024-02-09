@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ProjetJavaAlgo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ProjetJavaAlgo_jar</output-path>
+    <root id="archive" name="ProjetJavaAlgo.jar">
+      <element id="module-output" name="ProjetJavaAlgo" />
+    </root>
+  </artifact>
+</component>

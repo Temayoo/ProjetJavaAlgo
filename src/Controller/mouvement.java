@@ -110,6 +110,7 @@ public class mouvement {
     static void deplacement(Joueur joueur,Carte carteJeu) {
         Scanner scanner = new Scanner(System.in);
         boolean mouvementValide = false;
+        boolean EnCours = true;
 
         while (!mouvementValide) {
             try {
@@ -131,11 +132,6 @@ public class mouvement {
                         break;
                     case "d":
                         deplacerVersLaDroite(carteJeu.getJoueurs(), carteJeu, ancienX, ancienY, joueur);
-                        break;
-                    case "b":
-                        System.out.println("\033[H\033[2J");
-                        System.out.flush();
-                        menu(); // Renvoie au menu
                         break;
                     default:
                         System.out.println("\r\n" +"Direction invalide ! Veuillez choisir z, s, q, d ou b.");
