@@ -25,9 +25,8 @@ public class cli {
                     src.Controller.gamebase.demarrerJeu(); // lance la fonction de jeu dans gamebase
                     break;
                 case 2:
-                    System.out.println("\r\n" + "Voici les scores des differents joueurs" + "\r\n" + " ");
-                    src.View.CreationFichier.lectureFichier("DossierScore/score.txt");  // Lis le fichier txt
-                    menu();
+                    System.out.println("\r\n" + "Comment voulez vous triez les scores" + "\r\n" + " ");
+                    cliTriScore.scoreCli();
                     break;
                 case 3:
                     System.out.println("Règles");

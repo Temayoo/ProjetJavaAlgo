@@ -44,11 +44,15 @@ public class CreationFichier {
     public static void lectureFichier(String cheminFichier) {
         try (BufferedReader lecteur = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;
-            while ((ligne = lecteur.readLine()) != null) {
+            int count = 0;
+
+            while ((ligne = lecteur.readLine()) != null && count < 10) {
                 System.out.println(ligne);
+                count++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
